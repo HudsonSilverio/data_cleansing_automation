@@ -1,8 +1,17 @@
+# Usando a imagem do Python 3.12.1
 FROM python:3.12.1
+
+# Instalando o Poetry
 RUN pip install poetry
+
+# Copiando o código fonte para o diretório /src
 COPY . /src
+
+# Definindo o diretório de trabalho
 WORKDIR /src
+
+# Instalando as dependências do Poetry
 RUN poetry install --no-root
-EXPOSE 8501
-ENTRYPOINT ["poetry","run", "streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
-# ENTRYPOINT ["poetry","run", "python", "pipeline.py"]
+
+# Definindo o comando para rodar o pipeline
+ENTRYPOINT ["poetry", "run", "python", "src/ETL/pipeline.py"]

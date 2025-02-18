@@ -43,7 +43,7 @@ def limpar_dados(dados):
     return dados_limpos
 
 # Exemplo de uso:
-caminho = "C:/Users/Administrador/Downloads/Projetos Silverio/recruiting-academic-researchers-for-interviews.csv"
+caminho = "C:/Users/SAMSUNG/Rolhas/Desktop/Work Spark Wave/Data/recruiting-academic-researchers-for-interviews.csv"
 dados_csv = pd.read_csv(caminho, sep=';', skipinitialspace=True)  # Usa ';' como separador
 
 # Limpar os dados
@@ -52,3 +52,4 @@ dados_limpos = limpar_dados(dados_csv)
 # Exibir os dados limpos
 print(dados_limpos.head())
 
+# poetry run python transformation.py

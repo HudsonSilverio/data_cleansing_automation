@@ -27,8 +27,12 @@ def executar_pipeline(caminho_entrada, nome_arquivo_saida):
     except Exception as e:
         print(f"Erro na execução do pipeline: {e}")
 
-# Exemplo de execução do pipeline
-if __name__ == "__main__":
-    caminho_entrada = "C:/Users/Administrador/Downloads/Projetos Silverio/recruiting-academic-researchers-for-interviews.csv"
+# Função para solicitar o caminho do arquivo CSV
+def obter_entrada():
+    caminho_entrada = input("Digite o caminho do arquivo CSV a ser processado: ")
     nome_arquivo_saida = "dados_limpos.csv"
+    return caminho_entrada, nome_arquivo_saida
+
+if __name__ == "__main__":
+    caminho_entrada, nome_arquivo_saida = obter_entrada()
     executar_pipeline(caminho_entrada, nome_arquivo_saida)
