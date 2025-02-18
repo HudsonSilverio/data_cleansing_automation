@@ -13,5 +13,5 @@ WORKDIR /src
 # Instalando as dependências do Poetry
 RUN poetry install --no-root
 
-# Definindo o comando para rodar o pipeline
-ENTRYPOINT ["poetry", "run", "python", "src/ETL/pipeline.py"]
+# Definir o comando de inicialização para um shell interativo (sem rodar o código)
+ENTRYPOINT ["bash"]

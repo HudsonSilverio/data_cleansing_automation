@@ -1,8 +1,8 @@
-# poetry run python load.py
+#  poetry run python load.py
 
 import os
 import pandas as pd
-from transformation import dados_limpos  # Corrigindo a importação do módulo correto
+from transformation import limpar_dados  # Importando a função de transformação
 
 def salvar_csv_na_pasta_data(dados, nome_arquivo):
     """
@@ -32,9 +32,34 @@ def salvar_csv_na_pasta_data(dados, nome_arquivo):
     except Exception as e:
         print(f"Erro ao salvar o arquivo: {e}")
 
-# Exemplo de uso:
-# Supondo que `dados_limpos` seja o DataFrame com os dados limpos
-nome_arquivo = 'dados_limpos.csv'
+def carregar_e_processar_csv(caminho_entrada, nome_arquivo_saida):
+    """
+    Carrega o arquivo CSV, aplica a transformação e salva o CSV resultante.
 
-# Salvar o DataFrame limpo no CSV dentro da pasta 'data'
-salvar_csv_na_pasta_data(dados_limpos, nome_arquivo)
+    Parâmetros:
+    caminho_entrada (str): O caminho do arquivo CSV de entrada.
+    nome_arquivo_saida (str): O nome do arquivo de saída.
+
+    Retorna:
+    None
+    """
+    try:
+        # Carregar os dados do CSV de entrada
+        dados = pd.read_csv(caminho_entrada, sep=';', skipinitialspace=True)
+        print("Dados carregados com sucesso!")
+        
+        # Transformar os dados
+        dados_limpos = limpar_dados(dados)
+        
+        # Salvar os dados limpos no arquivo CSV
+        salvar_csv_na_pasta_data(dados_limpos, nome_arquivo_saida)
+        
+        print("Dados processados e salvos com sucesso!")
+    except Exception as e:
+        print(f"Erro ao processar o arquivo: {e}")
+
+# # Exemplo de uso
+# if __name__ == "__main__":
+#     caminho_entrada = "C:/Users/Administrador/Downloads/Projetos Silverio/recruiting-academic-researchers-for-interviews.csv"
+#     nome_arquivo_saida = "dados_limpos.csv"
+#     carregar_e_processar_csv(caminho_entrada, nome_arquivo_saida)
