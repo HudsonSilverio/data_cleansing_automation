@@ -45,7 +45,7 @@ def carregar_e_processar_csv(caminho_entrada, nome_arquivo_saida):
     """
     try:
         # Carregar os dados do CSV de entrada
-        dados = pd.read_csv(caminho_entrada, sep=',', skipinitialspace=True)
+        dados = pd.read_csv(caminho_entrada, sep=';', skipinitialspace=True)
         print("Dados carregados com sucesso!")
         
         # Transformar os dados
@@ -58,8 +58,4 @@ def carregar_e_processar_csv(caminho_entrada, nome_arquivo_saida):
     except Exception as e:
         print(f"Erro ao processar o arquivo: {e}")
 
-# # Exemplo de uso
-# if __name__ == "__main__":
-#     caminho_entrada = "C:/Users/Administrador/Downloads/Projetos Silverio/recruiting-academic-researchers-for-interviews.csv"
-#     nome_arquivo_saida = "dados_limpos.csv"
-#     carregar_e_processar_csv(caminho_entrada, nome_arquivo_saida)
+

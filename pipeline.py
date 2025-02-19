@@ -1,4 +1,3 @@
-# poetry run python pipeline.py 
 
 import pandas as pd
 import os
@@ -14,11 +13,17 @@ def executar_pipeline(caminho_entrada, nome_arquivo_saida):
     """
     try:
         # Carregar os dados
-        dados = pd.read_csv(caminho_entrada, sep=',', skipinitialspace=True)
+        dados = pd.read_csv(caminho_entrada, sep=';', skipinitialspace=True)
         print("Dados carregados com sucesso!")
+        
+        # Salvar a estrutura original das colunas
+        colunas_originais = dados.columns.tolist()
         
         # Transformar os dados
         dados_limpos = limpar_dados(dados)
+        
+        # Reindexar para manter a estrutura original
+        dados_limpos = dados_limpos.reindex(columns=colunas_originais, fill_value='')
         
         # Salvar os dados limpos
         salvar_csv_na_pasta_data(dados_limpos, nome_arquivo_saida)
@@ -36,3 +41,5 @@ def obter_entrada():
 if __name__ == "__main__":
     caminho_entrada, nome_arquivo_saida = obter_entrada()
     executar_pipeline(caminho_entrada, nome_arquivo_saida)
+
+# poetry run python pipeline.py 

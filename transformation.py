@@ -1,5 +1,6 @@
 #  poetry run python transformation.py
 
+
 def limpar_dados(dados):
     # Salvar a ordem original das colunas
     colunas_originais = dados.columns.tolist()
@@ -30,5 +31,6 @@ def limpar_dados(dados):
     dados_limpos = dados_limpos.reindex(columns=colunas_originais, fill_value='')
 
     return dados_limpos
+
 
 #  poetry run python transformation.py
