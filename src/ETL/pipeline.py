@@ -14,7 +14,7 @@ def executar_pipeline(caminho_entrada, nome_arquivo_saida):
     """
     try:
         # Carregar os dados
-        dados = pd.read_csv(caminho_entrada, sep=';', skipinitialspace=True)
+        dados = pd.read_csv(caminho_entrada, sep=',', skipinitialspace=True)
         print("Dados carregados com sucesso!")
         
         # Transformar os dados
