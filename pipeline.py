@@ -13,18 +13,20 @@ def executar_pipeline(caminho_entrada, nome_arquivo_saida):
     """
     try:
         # Carregar os dados
-        dados = pd.read_csv(caminho_entrada, sep=';', skipinitialspace=True)
+        dados = pd.read_csv(caminho_entrada, sep=',')
         print("Dados carregados com sucesso!")
         
-        # Salvar a estrutura original das colunas
-        colunas_originais = dados.columns.tolist()
-        
         # Transformar os dados
-        dados_limpos = limpar_dados(dados)
-        
-        # Reindexar para manter a estrutura original
-        dados_limpos = dados_limpos.reindex(columns=colunas_originais, fill_value='')
-        
+        dados_limpos, colunas_originais = limpar_dados(dados)
+
+        # Verifica quais colunas foram criadas na transformação
+        novas_colunas = [c for c in dados_limpos.columns if c not in colunas_originais]
+        # Define a ordem final: colunas originais + novas colunas
+        ordem_final = colunas_originais + novas_colunas
+
+        # Reindexa para manter a ordem e não perder dados
+        dados_limpos = dados_limpos.reindex(columns=ordem_final, fill_value='')
+
         # Salvar os dados limpos
         salvar_csv_na_pasta_data(dados_limpos, nome_arquivo_saida)
         
@@ -41,5 +43,6 @@ def obter_entrada():
 if __name__ == "__main__":
     caminho_entrada, nome_arquivo_saida = obter_entrada()
     executar_pipeline(caminho_entrada, nome_arquivo_saida)
+
 
 # poetry run python pipeline.py 
