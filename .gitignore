@@ -10,6 +10,7 @@ __pycache__/
 #data
 
 data/dados_limpos.csv
+dados_limpos.csv
 
 # C extensions
 *.so
