@@ -5,9 +5,6 @@ def limpar_dados(dados):
     # Salvar a ordem original das colunas
     colunas_originais = dados.columns.tolist()
 
-    # Excluir as colunas 'Points' e 'Your' se existirem
-    dados = dados.drop(columns=['Points', 'Your'], errors='ignore')
-
     # Função para remover emails
     def remover_emails(valor):
         if isinstance(valor, str) and ('@' in valor or '.com' in valor):

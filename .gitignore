@@ -7,6 +7,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#data
+
+data/dados_limpos.csv
+
 # C extensions
 *.so
 
