@@ -85,4 +85,4 @@ docker run -p 8501:8501 meu-app
 
 Para dúvidas, sugestões ou feedbacks:
 
-* **Hudson Silvério** - [hudsonpksj@gmail.com](mailto:hudsonpksj@gmail.com)
+* **Hudson Silvério** - [hudsonpksj@gmail.com](mailto:hudsonpksj@gmail.com)# clear_data_deploy_aws
