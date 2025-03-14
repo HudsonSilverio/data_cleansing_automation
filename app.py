@@ -1,10 +1,8 @@
 
 import streamlit as st
 import pandas as pd
-import csv 
+import csv
 import os
-#from load import salvar_csv_na_pasta_data  # Importe a função de salvar
-#from transformation import limpar_dados  # Importe a função de limpeza
 
 def salvar_csv_na_pasta_data(dados, nome_arquivo):
     """
@@ -32,8 +30,6 @@ def salvar_csv_na_pasta_data(dados, nome_arquivo):
         print(f"Arquivo salvo com sucesso em: {caminho_completo}")
     except Exception as e:
         print(f"Erro ao salvar o arquivo: {e}")
-
-# Função para carregar e processar grandes arquivos CSV em pedaços (chunks)
 
 def limpar_dados(dados):
     # Salvar a ordem original das colunas
@@ -97,9 +93,15 @@ st.title("🚀 **Limpador de Dados** - Suporte a Arquivos Grandes")
 # Input para o caminho do arquivo local
 caminho_arquivo = st.text_input("📁 **Digite o caminho do arquivo CSV**", "")
 
+# Remover espaços extras do caminho fornecido
+caminho_arquivo = caminho_arquivo.strip()
+
 if caminho_arquivo:
-    # Verifica se o arquivo existe
-    if os.path.exists(caminho_arquivo):
+    # Verifica se o caminho é absoluto
+    caminho_arquivo_absoluto = os.path.abspath(caminho_arquivo)
+    
+    # Verifica se o arquivo existe no caminho absoluto
+    if os.path.exists(caminho_arquivo_absoluto):
         st.write("🔄 **Carregando dados...** Isso pode levar um tempo, aguarde um momento.")
 
         try:
@@ -107,7 +109,7 @@ if caminho_arquivo:
             dados_processados = []
 
             # Processar o CSV em pedaços (chunks) e aplicar a limpeza
-            for chunk in processar_csv_em_chunks(caminho_arquivo, chunksize=50000):
+            for chunk in processar_csv_em_chunks(caminho_arquivo_absoluto, chunksize=50000):
                 dados_processados.append(chunk)  # Adiciona cada pedaço limpo na lista
 
                 # Exibe apenas a prévia de um chunk para evitar travamentos
@@ -133,7 +135,9 @@ if caminho_arquivo:
         except Exception as e:
             st.error(f"❌ **Erro ao processar o arquivo:** {e}")
     else:
-        st.error("⚠️ **O arquivo informado não foi encontrado.** Verifique o caminho e tente novamente.")
+        st.error(f"⚠️ **O arquivo informado não foi encontrado.** Verifique o caminho `{caminho_arquivo_absoluto}` e tente novamente.")
+else:
+    st.warning("⚠️ **Por favor, insira um caminho válido para o arquivo CSV.**")
 
 
 # poetry run streamlit run app.py
