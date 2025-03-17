@@ -3,10 +3,13 @@ import pandas as pd
 import os
 
 app = Flask(__name__)
+
 UPLOAD_FOLDER = "uploads"
 PROCESSED_FOLDER = "processed"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(PROCESSED_FOLDER, exist_ok=True)
+
+# Criar diretórios se não existirem
+for folder in [UPLOAD_FOLDER, PROCESSED_FOLDER]:
+    os.makedirs(folder, exist_ok=True)
 
 @app.route('/')
 def home():
@@ -41,6 +44,7 @@ def process_csv(filepath, filename):
     return processed_filepath
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
+
 
 # poetry run app.py
