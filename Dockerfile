@@ -1,21 +1,24 @@
-# Usa a imagem oficial do Python 3.12.1 como base
-FROM python:3.12.1-slim
+# Usando uma imagem oficial do Python 3.12 como base
+FROM python:3.12
 
-# Define o diretório de trabalho dentro do contêiner
+# Definir diretório de trabalho dentro do container
 WORKDIR /app
 
-# Instala o Poetry
+# Instalar dependências do Poetry
 RUN pip install --no-cache-dir poetry
 
-# Copia todos os arquivos do projeto para o contêiner
-COPY . /app
+# Copiar arquivos do projeto para dentro do container
+COPY pyproject.toml poetry.lock /app/
 
-# Instala as dependências sem criar um ambiente virtual e sem instalar o próprio projeto
-RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi --no-root
+# Instalar as dependências dentro do container
+RUN poetry config virtualenvs.create false && poetry install --no-dev
 
-# Expõe a porta que será usada pelo Streamlit (se aplicável)
-EXPOSE 8501
+# Copiar todo o código da aplicação
+COPY . /app/
 
-# Define o comando de inicialização do contêiner
-CMD ["poetry", "run", "streamlit", "run", "app.py"]
+# Expor a porta do Flask
+EXPOSE 5000
+
+# Comando para rodar o Flask
+CMD ["poetry", "run", "flask", "run", "--host=0.0.0.0", "--port=5000"]
 
